@@ -1,18 +1,31 @@
 import React from 'react'
-import { fetchData } from '../Helper'
+import { createBudget, fetchData } from '../Helper'
 import { useLoaderData } from 'react-router-dom';
 import Intro from '../Components/Intro';
 import { toast } from 'react-toastify';
+import BudgetForm from '../Components/BudgetForm';
 
 
 
 
 export default function Dashboard() {
-    const userName = useLoaderData();
+    const {userName , budgets} = useLoaderData();
   return (
     <>  
     
-   {userName ? userName : <Intro />}
+   {userName ? 
+   <div className='dashboard'> 
+    <h1>Welcome Back,<span className='accent'> {userName}</span></h1>
+   <div className='grid-sm'>
+    {/* {budgets ? : } */}
+    <div className='grid-lg'>
+      <div className='flex-lg'>
+        <BudgetForm />
+      </div>
+    </div>
+     </div>
+   </div>
+   : <Intro />}
     </>
   )
 }
@@ -20,23 +33,37 @@ export default function Dashboard() {
 
 
 export async function dashboardAction({request}){
-  
-  try {
   const data = await request.formData();
-  const formData = Object.fromEntries(data);
-  localStorage.setItem("userName",JSON.stringify(formData.userName));
-
-  return toast.success("Hello ,"+formData.userName);
+  const {_action,...values} = Object.fromEntries(data);
+  if(_action==='newUser') {
     
-  } catch (error) {
-    throw Error("There is something wrong while createing your account");  
+    try {
+      localStorage.setItem("userName",JSON.stringify(values.userName));
+    
+      return toast.success("Hello ,"+values.userName);
+        
+      } catch (error) {
+        throw new Error("There is something wrong while createing your account");  
+      }
   }
-
+ 
+  if (_action ==='newBudget') {
+    try {
+      createBudget({
+        name: values.newBudget,
+        amount : values.newBudgetAmount,
+      });
+      return toast.success("Budget Created");
+    } catch (error) {
+      throw new Error("There is a problem while creating your budget");
+    }
+  }
 }
 
 export function dashboardLoader(){
 
-const userName = fetchData("userName");
-return userName;
+const userName= fetchData("userName");
+const budgets = fetchData("budgets");
+return {userName , budgets};
 
 }

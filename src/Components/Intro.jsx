@@ -16,7 +16,8 @@ export default function Intro() {
             <Form method='post'>
                 <input type="text" placeholder='What is your name ?' name='userName' required autoComplete='given-name' />
                 <button type='submit' className='btn btn--dark'><span>Create Account</span></button>
-
+                {/* this hidden input to know which from is sending a request to be able to handel it's own request in the dashboard */}
+                <input type='hidden' name='_action' value='newUser'/>
             </Form>
         </div>
         <img src={illustration} alt="Person with money" width={600} />
