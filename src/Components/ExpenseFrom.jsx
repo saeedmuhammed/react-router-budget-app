@@ -43,17 +43,17 @@ export default function ExpenseFrom({ budgets }) {
             type="number"
             name="newExpenseAmount"
             id="newExpenseAmount"
-            placeholder="e.g. , 50 $"
+            placeholder="e.g. , 50 EGP"
             required
             inputMode="decimal"
           />
         </div>
-
+        <div className="grid-xs" hidden={budgets.length === 1}>
+        <label htmlFor="newExpenseBudget">Budget Category</label>
         <select
           name="newExpenseBudget"
           id="newExpenseBudget"
           required
-          hidden={budgets.length === 1}
         >
           {budgets
             .sort((a, b) => a.createdAt - b.createdAt)
@@ -66,6 +66,9 @@ export default function ExpenseFrom({ budgets }) {
               );
             })}
         </select>
+            
+             </div>
+       
 
         <input type="hidden" name="_action" value="newExpense" />
 

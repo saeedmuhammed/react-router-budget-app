@@ -39,7 +39,7 @@ export default function BudgetForm() {
               type="number"
               name="newBudgetAmount"
               id="newBudgetAmount"
-              placeholder="e.g. , 350$"
+              placeholder="e.g. , 350 EGP"
               required
               inputMode="decimal"
             />

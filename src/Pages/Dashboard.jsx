@@ -5,6 +5,7 @@ import Intro from "../Components/Intro";
 import { toast } from "react-toastify";
 import BudgetForm from "../Components/BudgetForm";
 import ExpenseFrom from "../Components/ExpenseFrom";
+import BudgetCard from "../Components/BudgetCard";
 
 export default function Dashboard() {
   const { userName, budgets } = useLoaderData();
@@ -21,6 +22,14 @@ export default function Dashboard() {
                 <div className="flex-lg">
                   <BudgetForm />
                   <ExpenseFrom budgets={budgets} />
+                </div>
+                <h2>Existing Budgets</h2>
+                <div className="budgets">
+                  {
+                    budgets.map((budget)=> 
+                      <BudgetCard key={budget.id} budget={budget} />
+                    )
+                  }
                 </div>
               </div>
             ) : (

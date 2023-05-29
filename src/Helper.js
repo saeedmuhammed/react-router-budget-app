@@ -19,7 +19,7 @@ return redirect("/");
 //create budget 
 export const createBudget=({name,amount})=>{
     const budget = {
-        id:Math.floor(Date.now() + Math.random() * 100) + 1, //add date now to generate unique ID
+        id:Math.floor(Date.now() + Math.random()* 100 + 1), //add date now to generate unique ID
         name : name,
         createdAt : Date.now(),
         amount : +amount,
@@ -30,7 +30,7 @@ export const createBudget=({name,amount})=>{
     return localStorage.setItem('budgets',JSON.stringify([...existingBudgets,budget]));
 }
 
-
+//create expense
 export const createExpense = ({name , amount , budgetId}) => {
 
     const expense = {
@@ -46,3 +46,60 @@ export const createExpense = ({name , amount , budgetId}) => {
     return localStorage.setItem('expenses',JSON.stringify([...existingExpenses , expense]));
 
 }
+
+
+
+//calculate the spent value
+
+export const calculateSpent = (budgetId) => {
+
+    const expenses = fetchData("expenses") ?? [];
+    const totalSpent = expenses.reduce((acc , expense)=> {
+          
+        if (expense.budgetId != budgetId){  return acc ; }
+        
+        return acc += expense.amount;
+
+    } , 0);
+
+    
+    return totalSpent;
+
+}
+
+
+//Formatting 
+
+
+// Formating percentages
+export const percentageFromat = (value) => {
+    return value.toLocaleString(undefined, {
+      style: "percent",
+      minimumFractionDigits: 0,
+    })
+  }
+  
+
+
+//format currency 
+export const currencyFormat = (value)=> {
+
+    return value.toLocaleString(undefined , {
+        style:"currency",
+        currency:"EGP"
+    })
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
