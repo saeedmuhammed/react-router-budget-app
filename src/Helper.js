@@ -11,6 +11,7 @@ return JSON.parse(localStorage.getItem(key));
 export const deleteItem = (key) => {
 
 localStorage.removeItem(key);
+localStorage.clear();
 toast.success("User Deleted Succefully !");
 return redirect("/");
 }
