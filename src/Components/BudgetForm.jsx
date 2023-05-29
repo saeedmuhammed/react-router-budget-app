@@ -1,12 +1,27 @@
-import React from "react";
-import { Form } from "react-router-dom";
+import React, { useEffect, useRef } from "react";
+import { Form, useFetcher } from "react-router-dom";
 
 export default function BudgetForm() {
+  const fetcher = useFetcher();  //fetcher hook from react router dom is used to know the status of the from 
+  const isSubmmiting = fetcher.state === "submitting";
+
+  const formRef = useRef();
+  const inputRef= useRef();
+
+  useEffect(() => {
+    if(!isSubmmiting){
+      formRef.current.reset();  //to reset the inputs of the from to make it empty
+      inputRef.current.focus(); //to make the focus on the add new budget input
+    }
+
+
+  } , [isSubmmiting])
+
   return (
     <>
       <div className="form-wrapper">
         <h2 className="h3"> Create Budget</h2>
-        <Form method="post" className="grid-sm">
+        <fetcher.Form method="post" className="grid-sm" ref={formRef}>
           <div className="grid-xs">
             <label htmlFor="newBudget"> Budget Name</label>
             <input
@@ -15,6 +30,7 @@ export default function BudgetForm() {
               id="newBudget"
               placeholder="e.g. , Gorceries"
               required
+              ref={inputRef}
             />
           </div>
           <div className="grid-xs">
@@ -31,10 +47,12 @@ export default function BudgetForm() {
              {/* this hidden input to know which from is sending a request to be able to handel it's own request in the dashboard */}
           <input type='hidden' name='_action' value='newBudget'/>
 
-          <button type="submit" className="btn btn--dark">
-            <span>Create budget</span>
+          <button type="submit" className="btn btn--dark" disabled={isSubmmiting}>
+            {
+              isSubmmiting? <span>Submitting</span> :<span>Create budget</span>
+            }
           </button>
-        </Form>
+        </fetcher.Form>
       </div>
     </>
   );
