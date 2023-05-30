@@ -69,7 +69,7 @@ export async function dashboardAction({ request }) {
     try {
       localStorage.setItem("userName", JSON.stringify(values.userName));
 
-      return toast.success("Hello ," + values.userName);
+      return toast.success("Hello ," + values.userName ,{ autoClose: 800 });
     } catch (error) {
       throw new Error("There is something wrong while createing your account");
     }
@@ -81,7 +81,7 @@ export async function dashboardAction({ request }) {
         name: values.newBudget,
         amount: values.newBudgetAmount,
       });
-      return toast.success("Budget Created");
+      return toast.success("Budget Created",{ autoClose: 800 });
     } catch (error) {
       throw new Error("There is a problem while creating your budget");
     }
@@ -94,7 +94,7 @@ export async function dashboardAction({ request }) {
         amount: values.newExpenseAmount,
         budgetId:values.newExpenseBudget ,
       });
-      return toast.success(`Expense ${values.newExpense} Created`);
+      return toast.success(`Expense ${values.newExpense} Created`,{ autoClose: 800 });
     } catch (error) {
       throw new Error("There is a problem while creating the expense");
     }
@@ -106,7 +106,7 @@ export async function dashboardAction({ request }) {
         key:"expenses",
         id:values.expenseId,
       });
-      return toast.success(`Expense deleted`);
+      return toast.success(`Expense deleted`,{ autoClose: 800 });
     } catch (error) {
       throw new Error("There is a problem while deleting the expense");
     }

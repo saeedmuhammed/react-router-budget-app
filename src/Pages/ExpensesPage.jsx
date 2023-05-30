@@ -34,7 +34,7 @@ export async function expesnsePageAction({request}){
         key:"expenses",
         id:values.expenseId,
       });
-      return toast.success(`Expense deleted`);
+      return toast.success(`Expense deleted`,{ autoClose: 800 });
     } catch (error) {
       throw new Error("There is a problem while deleting the expense");
     }
@@ -45,7 +45,7 @@ export async function expesnsePageAction({request}){
 
 export function expensesPageLoader () {
 
-  const expenses = fetchData("expenses");
+  const expenses = fetchData("expenses",{ autoClose: 800 });
   return {expenses}
 
 }
