@@ -47,18 +47,34 @@ export const createBudget=({name,amount})=>{
 //create expense
 export const createExpense = ({name , amount , budgetId}) => {
 
-    const expense = {
-        id:Math.floor(Date.now() + Math.random()* 100 + 1), //add date now to generate unique ID
-        name : name ,
-        createdAt : Date.now(),
-        amount : +amount,
-        budgetId : budgetId,
+
+    const spent = calculateSpent(budgetId);
+    const budgetAmount = getAllMatches({
+        category:"budgets",
+        key:"id",
+        value:budgetId
+    })[0].amount;
+    const remain = budgetAmount - spent ;
+    if(amount > remain) {
+
+        return false ;
+        // toast.warning("You have no enoguh budget" , {autoClose:1500});
     }
-
-    const existingExpenses = fetchData('expenses') ?? [];
-
-    return localStorage.setItem('expenses',JSON.stringify([...existingExpenses , expense]));
-
+    else {
+        const expense = {
+            id:Math.floor(Date.now() + Math.random()* 100 + 1), //add date now to generate unique ID
+            name : name ,
+            createdAt : Date.now(),
+            amount : +amount,
+            budgetId : budgetId,
+        }
+    
+        const existingExpenses = fetchData('expenses') ?? [];
+        localStorage.setItem('expenses',JSON.stringify([...existingExpenses , expense]));
+        return true;
+    
+    }
+    
 }
 
 

@@ -89,12 +89,17 @@ export async function dashboardAction({ request }) {
   if (_action === "newExpense") {
     try {
 
-      createExpense({
+     const done = createExpense({
         name: values.newExpense ,
         amount: values.newExpenseAmount,
         budgetId:values.newExpenseBudget ,
       });
+      if(!done) {
+        return toast.warning("You have no enoguh budget" , {autoClose:1500});
+      }
+      else {
       return toast.success(`Expense ${values.newExpense} Created`,{ autoClose: 800 });
+      }
     } catch (error) {
       throw new Error("There is a problem while creating the expense");
     }

@@ -8,7 +8,6 @@ import { toast } from 'react-toastify';
 
 export default function BudgetPage() {
  const {budget ,expenses} = useLoaderData();
-    console.log(expenses)
     return (
     <div className="grid-lg">
         <h1 className="h2">
@@ -17,7 +16,7 @@ export default function BudgetPage() {
             </span> Overview
         </h1>
         <div className="flex-lg">
-            <BudgetCard budget={budget} />
+            <BudgetCard budget={budget} showDelete={true} />
             <ExpenseFrom budgets={[budget]} />
         </div>
 
