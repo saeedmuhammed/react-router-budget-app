@@ -2,7 +2,7 @@ import React from 'react'
 import ExpenseItem from './ExpenseItem'
 
 
-export default function ExpensesTable({expenses}) {
+export default function ExpensesTable({expenses , showBudget = true}) {
   return (
     
         <div className="tabl">
@@ -12,14 +12,14 @@ export default function ExpensesTable({expenses}) {
                         <th>Name</th>
                         <th>Amount</th>
                         <th>Date</th>
-                        <th>Budget</th>
+                        {showBudget && (<th>Budget</th>)}
                         <th>{" "}</th>
                     </tr>
                 </thead>
                 <tbody>
                     {expenses.map((expense)=>
                         <tr key={expense.id}>
-                            <ExpenseItem expense={expense} />
+                            <ExpenseItem expense={expense} showBudget={showBudget}/>
                         </tr>
                     )}
                 </tbody>

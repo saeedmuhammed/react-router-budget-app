@@ -2,7 +2,7 @@ import React from 'react'
 import { getAllMatches } from '../Helper';
 import { Link, useFetcher } from 'react-router-dom';
 
-export default function ExpenseItem({expense}) {
+export default function ExpenseItem({expense , showBudget}) {
 
     const budget = getAllMatches({
       category:"budgets",
@@ -24,7 +24,7 @@ export default function ExpenseItem({expense}) {
     <td>
         {new Date(expense.createdAt).toLocaleDateString()}
     </td>
-    < td> <Link to={`/budget/${budget.id}`} >{budget.name}</Link> </td>
+    {showBudget && (< td> <Link to={`/budget/${budget.id}`} >{budget.name}</Link> </td>)}
     < td>  
       <fetcher.Form method='post'>
         <input type='hidden' name='_action' value="deleteExpense" />
