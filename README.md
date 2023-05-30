@@ -14,3 +14,10 @@ This is a simple budget application built with React and React Router DOM. It se
 - React Router DOM
 - Local Storage API
 - Toastify React
+
+To run the project
+
+```
+npm run dev
+
+```
