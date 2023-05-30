@@ -8,6 +8,19 @@ return JSON.parse(localStorage.getItem(key));
 
 }
 
+
+//delete item with id 
+
+export const deleteWithId = ({key,id}) => {
+
+const data = fetchData(key);
+
+const newData = data.filter((item)=> item.id != id);
+
+return localStorage.setItem(key,JSON.stringify(newData));
+
+}
+
 export const deleteItem = (key) => {
 
 localStorage.removeItem(key);
@@ -45,6 +58,22 @@ export const createExpense = ({name , amount , budgetId}) => {
     const existingExpenses = fetchData('expenses') ?? [];
 
     return localStorage.setItem('expenses',JSON.stringify([...existingExpenses , expense]));
+
+}
+
+
+//get all matches 
+
+export const getAllMatches = ({
+    category,
+    key,
+    value,
+}) => {
+
+const data = fetchData(category) ?? [];
+
+return data.filter((item)=> item[key] == value);
+
 
 }
 

@@ -7,14 +7,14 @@ import { deleteItem } from "./Helper";
 //totsify library for notifications 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import ExpensesPage, { expensesPageLoader } from "./Pages/ExpensesPage";
+import ExpensesPage, { expensesPageLoader, expesnsePageAction } from "./Pages/ExpensesPage";
 
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<MainLayout />} loader={dashboardLoader} errorElement={<Error />} >
     <Route index element={<Dashboard />} loader={dashboardLoader} action={dashboardAction} />
-    <Route path="expensesPage" element={<ExpensesPage />} loader={expensesPageLoader}/>
+    <Route path="expensesPage" element={<ExpensesPage />} loader={expensesPageLoader} action={expesnsePageAction}/>
     <Route path="logout" action={()=> deleteItem('userName')} />
 
     </Route>

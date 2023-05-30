@@ -12,6 +12,8 @@ export default function ExpensesTable({expenses}) {
                         <th>Name</th>
                         <th>Amount</th>
                         <th>Date</th>
+                        <th>Budget</th>
+                        <th>{" "}</th>
                     </tr>
                 </thead>
                 <tbody>

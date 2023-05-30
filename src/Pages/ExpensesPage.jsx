@@ -1,7 +1,8 @@
 import React from 'react'
-import { fetchData } from '../Helper'
+import { deleteWithId, fetchData } from '../Helper'
 import { useLoaderData } from 'react-router-dom';
 import ExpensesTable from '../Components/ExpensesTable';
+import { toast } from 'react-toastify';
 
 export default function ExpensesPage() {
   const {expenses} = useLoaderData();
@@ -22,7 +23,24 @@ export default function ExpensesPage() {
   )
 }
 
+export async function expesnsePageAction({request}){
 
+  const data = await request.formData();
+  const{ _action , ...values }=Object.fromEntries(data);
+  if (_action === "deleteExpense") {
+    try {
+
+      deleteWithId({
+        key:"expenses",
+        id:values.expenseId,
+      });
+      return toast.success(`Expense deleted`);
+    } catch (error) {
+      throw new Error("There is a problem while deleting the expense");
+    }
+  }
+
+}
 
 
 export function expensesPageLoader () {
