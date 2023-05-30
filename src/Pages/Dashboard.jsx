@@ -1,6 +1,6 @@
 import React from "react";
 import { createBudget, createExpense, fetchData } from "../Helper";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import Intro from "../Components/Intro";
 import { toast } from "react-toastify";
 import BudgetForm from "../Components/BudgetForm";
@@ -38,7 +38,10 @@ export default function Dashboard() {
                     expenses && expenses.length > 0 && (
                       <div className="grid-md">
                         <h2>Recent Expenses</h2>
-                        <ExpensesTable expenses={expenses.sort((a,b)=>b.createAt - a.createAt)} />
+                        <ExpensesTable expenses={expenses.sort((a,b)=>b.createAt - a.createAt).slice(0,8)} />
+                        {expenses.length > 8 && (
+                          <Link to="expensesPage" className="btn btn--dark" > Show All Expenses </Link>
+                        )}
                       </div>
                     )
                   }
